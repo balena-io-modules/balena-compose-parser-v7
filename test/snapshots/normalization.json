@@ -1,0 +1,95 @@
+{
+	"composition": {
+		"version": "2.4",
+		"services": {
+			"listforms": {
+				"image": "alpine",
+				"environment": {
+					"WITH_VALUE": "set",
+					"VALUELESS": "",
+					"EMPTY": ""
+				},
+				"labels": {
+					"io.balena.list": "1"
+				},
+				"extra_hosts": [
+					"listform:1.2.3.4"
+				],
+				"ports": [
+					"8080:80"
+				],
+				"expose": [
+					9000
+				]
+			},
+			"mapforms": {
+				"image": "alpine",
+				"environment": {
+					"WITH_VALUE": "set",
+					"VALUELESS": "",
+					"NUMERIC": "42"
+				},
+				"labels": {
+					"io.balena.map": "1"
+				},
+				"extra_hosts": [
+					"mapform:5.6.7.8"
+				]
+			},
+			"buildforms": {
+				"build": {
+					"context": "./ctx",
+					"dockerfile": "Dockerfile.custom",
+					"args": {
+						"ARG_LIST": "1"
+					},
+					"labels": {
+						"io.balena.build": "1"
+					},
+					"tag": "named/result"
+				},
+				"image": "named/result"
+			},
+			"volumes": {
+				"image": "alpine",
+				"volumes": [
+					"resin-data:/data"
+				],
+				"tmpfs": [
+					"/run"
+				]
+			}
+		},
+		"volumes": {
+			"resin-data": {}
+		}
+	},
+	"descriptors": [
+		{
+			"serviceName": "listforms",
+			"image": "alpine"
+		},
+		{
+			"serviceName": "mapforms",
+			"image": "alpine"
+		},
+		{
+			"serviceName": "buildforms",
+			"image": {
+				"context": "./ctx",
+				"dockerfile": "Dockerfile.custom",
+				"args": {
+					"ARG_LIST": "1"
+				},
+				"labels": {
+					"io.balena.build": "1"
+				},
+				"tag": "named/result"
+			}
+		},
+		{
+			"serviceName": "volumes",
+			"image": "alpine"
+		}
+	]
+}

@@ -1,0 +1,29 @@
+# YAML anchors, aliases and merge keys. Not every loader version resolves these
+# the same way.
+version: '2.4'
+
+x-defaults: &defaults
+  restart: always
+  environment:
+    SHARED: from-anchor
+
+x-logging: &logging
+  labels:
+    io.balena.logging: '1'
+
+services:
+  inline-merge:
+    <<: *defaults
+    image: alpine
+
+  multi-merge:
+    <<: [
+      *defaults,
+      *logging
+    ]
+    image: alpine
+
+  override-merge:
+    <<: *defaults
+    image: alpine
+    restart: 'no'
