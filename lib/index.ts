@@ -1,3 +1,4 @@
+import { toModernImageDescriptors } from './adapter';
 import { defaultComposition, normalize, parse } from './compose';
 import { ServiceError, ValidationError } from './errors';
 import {
@@ -17,6 +18,7 @@ import {
 
 export {
 	defaultComposition,
+	toModernImageDescriptors,
 	normalize,
 	parse,
 	BuildConfig,
