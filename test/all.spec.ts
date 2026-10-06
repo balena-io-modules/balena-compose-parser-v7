@@ -5,8 +5,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Readable } from 'stream';
 
-import * as compose from '../../lib/parse';
-import { validateLabels } from '../../lib/parse/compose';
+import * as compose from '../lib';
+import { validateLabels } from '../lib/compose';
 
 const { DEFAULT_SCHEMA_VERSION, ServiceError, ValidationError } = compose;
 
