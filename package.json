@@ -1,0 +1,66 @@
+{
+  "name": "@balena/compose-parser-v7",
+  "version": "0.0.0",
+  "description": "Frozen legacy docker-compose parser extracted from @balena/compose, serving the builder /v3 endpoint",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "lint": "balena-lint -t ./tsconfig.test.json lib/ test/ && tsc --noEmit",
+    "lint-fix": "balena-lint -t ./tsconfig.test.json --fix lib/ test/",
+    "build": "npm run clean && tsc --project ./ && npm run copy",
+    "copy": "node -e \"const fs=require('fs');fs.mkdirSync('dist/schemas',{recursive:true});for(const f of fs.readdirSync('lib/schemas')) if(f.endsWith('.json')) fs.copyFileSync('lib/schemas/'+f,'dist/schemas/'+f)\"",
+    "test": "npm run lint && ts-mocha --project ./tsconfig.test.json",
+    "prepack": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balena-io-modules/balena-compose-parser-v7.git"
+  },
+  "author": "Balena Inc. <hello@balena.io>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/balena-io-modules/balena-compose-parser-v7/issues"
+  },
+  "homepage": "https://github.com/balena-io-modules/balena-compose-parser-v7#readme",
+  "dependencies": {
+    "ajv": "^6.12.6",
+    "lodash": "^4.17.21",
+    "semver": "^7.7.2",
+    "typed-error": "^3.2.2"
+  },
+  "devDependencies": {
+    "@balena/lint": "^9.3.7",
+    "@types/chai": "^4.3.20",
+    "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.17.20",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.19.17",
+    "@types/semver": "^7.7.1",
+    "chai": "^4.5.0",
+    "js-yaml": "^4.1.0",
+    "mocha": "^11.7.2",
+    "ncp": "^2.0.0",
+    "rimraf": "^6.0.1",
+    "ts-mocha": "^11.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "@balena/compose-parser": "^0.4.0"
+  },
+  "peerDependencies": {
+    "@balena/compose-parser": ">=0.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@balena/compose-parser": {
+      "optional": true
+    }
+  }
+}

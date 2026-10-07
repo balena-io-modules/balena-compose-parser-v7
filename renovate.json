@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>balena-io/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["js-yaml"],
+      "enabled": false,
+      "description": "Pinned to v4 deliberately. v5 changes how compose files parse, which this package exists to keep stable. See test/snapshots.spec.ts."
+    }
+  ]
+}
