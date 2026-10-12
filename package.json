@@ -4,6 +4,16 @@
   "description": "Frozen legacy docker-compose parser extracted from @balena/compose, serving the builder /v3 endpoint",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./adapter": {
+      "types": "./dist/adapter.d.ts",
+      "default": "./dist/adapter.js"
+    }
+  },
   "files": [
     "dist/",
     "CHANGELOG.md",

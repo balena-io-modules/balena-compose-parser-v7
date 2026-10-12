@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import { normalize, parse, toModernImageDescriptors } from '../lib';
+import { toModernImageDescriptors } from '../lib/adapter';
+import { normalize, parse } from '../lib';
 
 describe('adapter', () => {
 	describe('toModernImageDescriptors', () => {

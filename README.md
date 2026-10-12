@@ -35,7 +35,8 @@ stays supported, not on its own.
 ## Usage
 
 ```ts
-import { normalize, parse, toModernImageDescriptors } from '@balena/compose-parser-v7';
+import { normalize, parse } from '@balena/compose-parser-v7';
+import { toModernImageDescriptors } from '@balena/compose-parser-v7/adapter';
 
 const composition = normalize(JsYaml.load(source));
 const descriptors = parse(composition);
@@ -46,9 +47,12 @@ const modern = toModernImageDescriptors(descriptors);
 
 `toModernImageDescriptors` maps this parser's descriptors onto the
 `@balena/compose-parser` types. Only descriptors, since the two compositions
-differ in value and not only in shape, which `lib/adapter.ts` explains. Those types are a types-only optional
-peer dependency: `@balena/compose-parser` ships a Go binary, and consumers that
-only need the legacy parser should not have to install it.
+differ in value and not only in shape, which `lib/adapter.ts` explains.
+
+It sits on its own subpath because it is the only part that names
+`@balena/compose-parser`, which is an optional peer dependency. That package
+ships a Go binary, so anyone who only needs the legacy parser should not have to
+install it, and importing the root needs nothing extra.
 
 ## Maintaining
 
