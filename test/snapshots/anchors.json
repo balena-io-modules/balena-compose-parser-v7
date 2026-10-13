@@ -1,0 +1,56 @@
+{
+	"composition": {
+		"version": "2.4",
+		"x-defaults": {
+			"restart": "always",
+			"environment": {
+				"SHARED": "from-anchor"
+			}
+		},
+		"x-logging": {
+			"labels": {
+				"io.balena.logging": "1"
+			}
+		},
+		"services": {
+			"inline-merge": {
+				"restart": "always",
+				"environment": {
+					"SHARED": "from-anchor"
+				},
+				"image": "alpine"
+			},
+			"multi-merge": {
+				"restart": "always",
+				"environment": {
+					"SHARED": "from-anchor"
+				},
+				"labels": {
+					"io.balena.logging": "1"
+				},
+				"image": "alpine"
+			},
+			"override-merge": {
+				"restart": "no",
+				"environment": {
+					"SHARED": "from-anchor"
+				},
+				"image": "alpine"
+			}
+		}
+	},
+	"descriptors": [
+		{
+			"serviceName": "inline-merge",
+			"image": "alpine"
+		},
+		{
+			"serviceName": "multi-merge",
+			"image": "alpine"
+		},
+		{
+			"serviceName": "override-merge",
+			"image": "alpine"
+		}
+	]
+}
