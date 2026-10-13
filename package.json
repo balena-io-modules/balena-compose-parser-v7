@@ -1,6 +1,6 @@
 {
   "name": "@balena/compose-parser-v7",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Frozen legacy docker-compose parser extracted from @balena/compose, serving the builder /v3 endpoint",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -72,5 +72,8 @@
     "@balena/compose-parser": {
       "optional": true
     }
+  },
+  "versionist": {
+    "publishedAt": "2026-10-13T14:08:58.021Z"
   }
 }

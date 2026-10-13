@@ -1,0 +1,249 @@
+- commits:
+    - subject: Move the adapter to its own subpath
+      hash: e0e4fc41170d8cc68e0d15c254a6128effe09da8
+      body: >
+        index re-exported the adapter, so consumers saw an error for the missing
+
+        @balena/compose-parser types even if they never touched it. Only the
+        subpath
+
+        needs that peer dependency now.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Christina Ying Wang
+      nested: []
+    - subject: Add snapshot tests and a compose-go shape adapter
+      hash: 607ced137a2573f03fdf02b5a0fd6174effc3d75
+      body: >
+        Renovate will patch this package, which is also how its behaviour
+        drifts, and a
+
+        YAML loader can change how a compose file parses without this parser
+        changing at
+
+        all. So test/snapshots covers the whole pipeline the builder runs,
+        taking YAML
+
+        source through js-yaml, then normalize and parse.
+
+
+        The adapter maps our output onto the compose-go types, so the builder
+        can feed
+
+        both parsers into one build pipeline. It emits build.tag as well as
+        build.tags,
+
+        because @balena/compose still reads task.tag at runtime and emitting
+        only tags
+
+        would quietly stop tagging images.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Christina Ying Wang
+      nested: []
+    - subject: Add packaging, CI and lint config
+      hash: d46b5ad52690ae4f9f7e6b2450e9cb7217a51a74
+      body: >
+        The parser arrives with its history from balena-compose, where it lived
+        at
+
+        lib/parse. This adds what it needs to stand on its own, trims the
+        dependencies
+
+        from 22 to the four it imports, and points the tests at the new paths.
+
+
+        js-yaml is not among the dependencies. The parser takes an
+        already-loaded
+
+        object, so the caller does the YAML loading.
+      footer:
+        Change-type: major
+        change-type: major
+      author: Christina Ying Wang
+      nested: []
+    - subject: Set label values to stringified number
+      hash: 56118c5bf767929b1eaf0f05b05e6dc16fbf9040
+      body: |
+        ImageLabel.value needs to be a string and not a number.
+        Currently our builder fails due to the API throwing a DB
+        error due to the type mismatch.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: joshbwlng
+      nested: []
+    - subject: Support sw.os and sw.kernel contract requirement variants, allow
+        multiple variants
+      hash: 3dbfabd2bc868c7e0b94aa43d9b8a56fc5eccc9c
+      body: >
+        This allows users to specify an OS slug as a contract requirement, for
+        example
+
+        io.balena.features.requires.sw.balena-os:>VERSION, which transforms to
+
+        {type:'sw.os',slug:'balena-os',version:'>VERSION'}. Similarly,
+
+        io.balena.features.requires.sw.linux:>VERSION transforms to
+
+        {type:'sw.kernel',slug:'linux',version:'>VERSION'}. This allows for
+
+        eventual flexibility in OS and kernel requirements for a container.
+
+
+        Currently we only support the 'balena-os' sw.os variant and the
+
+        'linux' sw.kernel variant.
+      footer:
+        See: https://balena.fibery.io/Work/Project/Add-kernel-and-OS-version-to-container-contracts-1916
+        see: https://balena.fibery.io/Work/Project/Add-kernel-and-OS-version-to-container-contracts-1916
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Christina Ying Wang <christina@balena.io>
+        signed-off-by: Christina Ying Wang <christina@balena.io>
+      author: Christina Ying Wang
+      nested: []
+    - subject: Reduce lodash usage
+      hash: cf5c04a09b4383192863f670889ad2ee3bbee86b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Update @balena/lint to 9.x
+      hash: 150642fa90812020db38628b4db93c5394ce9074
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Add slug to contracts from requirement labels
+      hash: d8d35569da878395a500f88ede3062b43e7e274f
+      body: |
+        This ensures that the supervisor accepts contracts generated when using
+        the label. See
+        https://github.com/balena-os/balena-supervisor/blob/master/src/lib/contracts.ts#L194-L206
+        for the validation object.
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Felipe Lalanne
+      nested: []
+    - subject: Create task contracts from composition labels
+      hash: d7cac5e928a56bcff2b9621547496fc2db118529
+      body: |
+        This adds a new interface for defining contract requirements via labels.
+        This should allow to remove `contract.yml` support in a future major
+        version
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Felipe Lalanne
+      nested: []
+    - subject: Prettify fix for consistent-type-imports
+      hash: 2f819807cd980081a41c6fab2678a8b93c15c828
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ken Bannister <kb2ma@runbox.com>
+        signed-off-by: Ken Bannister <kb2ma@runbox.com>
+      author: Ken Bannister
+      nested: []
+    - subject: Fix the remaining linting errors
+      hash: a84e261f82dffc6be083af9367bfb76c400f708a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Remove unnecessary regex escaping
+      hash: e8bae6ede00d857b452c3061d691e955eb9731d7
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Use native map where possible
+      hash: 8a863f88975315291ea4ffdb42e0cc2c31810f40
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Use native filter
+      hash: 2593a900d62a8e15b54bd1fcad605a6563824be4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Use native includes
+      hash: 188add218109d9ecf81325cf564cf57d2083dfbb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Use native Object.keys
+      hash: a1ded5e03fc3e5b0854a726d0de19055a82a918d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Switch to native null check
+      hash: 5e408deac5ac159b2e4d1c7e21385427d925f6f9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Switch to native object check
+      hash: e4eb58ddd4039b8ebc7c3b44f82995ba864b4fa6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Switch to native string check
+      hash: 403ca7be97eb81cddc203f7803df6524a0b10583
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Switch to native Array.isArray
+      hash: 1278eb0d458ee83365867b6eff26509cb4450d14
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+      nested: []
+    - subject: Import balena-compose-parse
+      hash: 654518ce28e2d76a94477c008b49cd771c11b7cf
+      body: |
+        Repo: https://github.com/balena-io-modules/balena-compose-parse
+        Commit: 06a6b10d3096e133762200e3737b67d3fe980ff7
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Akis Kesoglou
+      nested: []
+  version: 1.0.0
+  title: ""
+  date: 2026-10-13T14:08:57.874Z
